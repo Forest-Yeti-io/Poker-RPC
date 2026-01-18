@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9fb4479c02537ee2217706a1faa4f46e",
+    "content-hash": "6eb39f056a0691e4db6798cf1df9c52b",
     "packages": [
+        {
+            "name": "forest-yeti/poker-kernel",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Forest-Yeti-io/Poker-Kernel.git",
+                "reference": "0ebbebdc796614df0cd8bccdc7204ef7eeb56ab8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Forest-Yeti-io/Poker-Kernel/zipball/0ebbebdc796614df0cd8bccdc7204ef7eeb56ab8",
+                "reference": "0ebbebdc796614df0cd8bccdc7204ef7eeb56ab8",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^12.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ForestYeti\\PokerKernel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Forest-Yeti",
+                    "email": "artem.tiutnev@gmail.com"
+                }
+            ],
+            "description": "Библиотека, которая реализовывает покерные правила (Определение комбинаций, определение победителя раздачи, RNG)",
+            "support": {
+                "issues": "https://github.com/Forest-Yeti-io/Poker-Kernel/issues",
+                "source": "https://github.com/Forest-Yeti-io/Poker-Kernel/tree/v1.0.0"
+            },
+            "time": "2026-01-17T20:26:08+00:00"
+        },
         {
             "name": "psr/cache",
             "version": "3.0.0",
@@ -2533,7 +2573,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -2541,6 +2581,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
