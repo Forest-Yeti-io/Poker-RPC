@@ -80,9 +80,9 @@
 ```json
 {
   "cardDeck": [
-    "A-S",
-    "K-H",
-    "10-D"
+    "7-Clubs",
+    "6-Hearts",
+    "13-Spades"
   ]
 }
 ```
@@ -100,7 +100,7 @@
 {
   "Method": "GetHoldemCombination",
   "Params": {
-    "Cards": ["A-S", "K-S", "Q-S", "J-S", "10-S"]
+    "Cards": ["14-Spades", "13-Spades", "12-Spades", "11-Spades", "10-Spades"]
   },
   "Token": "<APPLICATION_SECRET_TOKEN>"
 }
@@ -111,7 +111,7 @@
 {
   "score": 9,
   "combinationName": "Royal Flash",
-  "playingCards": ["A-S", "K-S", "Q-S", "J-S", "10-S"]
+  "playingCards": ["14-Spades", "13-Spades", "12-Spades", "11-Spades", "10-Spades"]
 }
 ```
 
@@ -128,14 +128,29 @@
 ```json
 {
   "Method": "GetHoldemWinner",
+  "Token": "Test",
   "Params": {
-    "BoardCards": ["A-S", "K-S", "Q-S", "J-S", "2-D"],
+    "BoardCards": [
+      "13-Clubs",
+      "2-Hearts",
+      "12-Hearts",
+      "8-Hearts"
+    ],
     "Players": {
-      "P1": ["10-S", "9-S"],
-      "P2": ["A-D", "A-H"]
+      "P1": [
+        "14-Hearts",
+        "6-Clubs"
+      ],
+      "P2": [
+        "8-Diamonds",
+        "8-Clubs"
+      ],
+      "P3": [
+        "13-Diamonds",
+        "13-Hearts"
+      ]
     }
-  },
-  "Token": "<APPLICATION_SECRET_TOKEN>"
+  }
 }
 ```
 
@@ -145,23 +160,50 @@
   "resolvers": [
     {
       "playerIdentifier": "P1",
-      "score": 9,
-      "combinationName": "Royal Flash",
-      "playingCards": ["A-S", "K-S", "Q-S", "J-S", "10-S"],
-      "equity": 0.75
+      "score": 1,
+      "combinationName": "High Card",
+      "playingCards": [
+        "14-Hearts",
+        "13-Clubs",
+        "12-Hearts",
+        "8-Hearts",
+        "6-Clubs"
+      ],
+      "equity": 19.047619047619047
     },
     {
       "playerIdentifier": "P2",
-      "score": 1,
-      "combinationName": "Pair",
-      "playingCards": ["A-D", "A-H", "A-S", "K-S", "Q-S"],
-      "equity": 0.25
+      "score": 300,
+      "combinationName": "Three Of Kind",
+      "playingCards": [
+        "8-Diamonds",
+        "8-Clubs",
+        "8-Hearts",
+        "13-Clubs",
+        "12-Hearts"
+      ],
+      "equity": 2.380952380952381
+    },
+    {
+      "playerIdentifier": "P3",
+      "score": 300,
+      "combinationName": "Three Of Kind",
+      "playingCards": [
+        "13-Diamonds",
+        "13-Hearts",
+        "13-Clubs",
+        "12-Hearts",
+        "8-Hearts"
+      ],
+      "equity": 78.57142857142857
     }
   ],
-  "winners": ["P1"]
+  "winners": [
+    "P3"
+  ]
 }
 ```
 
 ## Формат карт
 
-Карты передаются строками в формате `<Rank>-<Suit>` (например, `A-S`, `10-H`). Доступные значения рангов и мастей должны соответствовать перечислениям `CardRankEnum` и `CardSuitEnum` библиотеки PokerKernel.
+Карты передаются строками в формате `<Rank>-<Suit>` (например, `14-Spades`, `10-Hearts`). Доступные значения рангов и мастей должны соответствовать перечислениям `CardRankEnum` и `CardSuitEnum` библиотеки PokerKernel.
