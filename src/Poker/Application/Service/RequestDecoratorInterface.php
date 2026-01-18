@@ -10,4 +10,5 @@ interface RequestDecoratorInterface
 
     public function getMethod(): string;
     public function getParams(): array;
+    public function validateToken(string $correctlyApplicationSecretToken): self;
 }

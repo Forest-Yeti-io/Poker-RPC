@@ -1,5 +1,5 @@
 parameters:
-
+    app.secret_token: '%env(APPLICATION_SECRET_TOKEN)%'
 services:
     _defaults:
         autowire: true

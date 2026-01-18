@@ -10,9 +10,11 @@ class RequestDecorator implements RequestDecoratorInterface
 {
     private const string METHOD = 'Method';
     private const string PARAMS = 'Params';
+    private const string TOKEN = 'Token';
 
     private string $method = '';
     private array $params = [];
+    private string $applicationSecretToken = '';
     private bool $init = false;
 
     /**
@@ -32,8 +34,14 @@ class RequestDecorator implements RequestDecoratorInterface
             throw new ApplicationException('Параметры не определены в теле запроса');
         }
 
+        $applicationSecretToken = $content[self::TOKEN] ?? null;
+        if (!is_string($applicationSecretToken)) {
+            throw new ApplicationException('Отсутствует токен авторизации');
+        }
+
         $this->method = $method;
         $this->params = $params;
+        $this->applicationSecretToken = $applicationSecretToken;
         $this->init = true;
 
         return $this;
@@ -66,5 +74,21 @@ class RequestDecorator implements RequestDecoratorInterface
         }
 
         return $this->params;
+    }
+
+    /**
+     * @throws ApplicationException
+     */
+    public function validateToken(string $correctlyApplicationSecretToken): self
+    {
+        if (!$this->isInit()) {
+            throw new ApplicationException('Запрос не инициализирован');
+        }
+
+        if ($this->applicationSecretToken !== $correctlyApplicationSecretToken) {
+            throw new ApplicationException('Некорректный токен авторизации');
+        }
+
+        return $this;
     }
 }
