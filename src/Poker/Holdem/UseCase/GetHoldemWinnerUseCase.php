@@ -46,7 +46,10 @@ readonly class GetHoldemWinnerUseCase implements UseCaseInterface
         $winnerDto = $this->prepareParams($params);
 
         $gameResult = $this->holdemEvaluator->evaluate($winnerDto->getPlayers(), $winnerDto->getBoardCards());
-        $equityResult = $this->holdemEquityCalculator->calculate($winnerDto->getBoardCards(), $winnerDto->getPlayers());
+        $equityResult = null;
+        if (!empty($winnerDto->getBoardCards())) {
+            $equityResult = $this->holdemEquityCalculator->calculate($winnerDto->getBoardCards(), $winnerDto->getPlayers());
+        }
 
         return $this->buildOutput($gameResult, $equityResult);
     }
@@ -80,7 +83,7 @@ readonly class GetHoldemWinnerUseCase implements UseCaseInterface
         return $winnerDto;
     }
 
-    private function buildOutput(GameResult $gameResult, EquityResult $equityResult): array
+    private function buildOutput(GameResult $gameResult, ?EquityResult $equityResult): array
     {
         $output = [
             'resolvers' => [],
@@ -93,7 +96,7 @@ readonly class GetHoldemWinnerUseCase implements UseCaseInterface
                 'score' => $resolverResult->getCombinationScore(),
                 'combinationName' => $this->combinationPresenter->presetHoldem($resolverResult->getCombinationScore()),
                 'playingCards' => array_map(fn (Card $card) => $this->cardPresenter->preset($card), $resolverResult->getPlayingCards()),
-                'equity' => $equityResult->getEquity($resolverResult->getPlayer()),
+                'equity' => $equityResult !== null ? $equityResult->getEquity($resolverResult->getPlayer()) : 0,
             ];
         }
 
